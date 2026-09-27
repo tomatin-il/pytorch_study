@@ -1,0 +1,19 @@
+import torch
+x=torch.ones(2,5)
+print(f'x:{x}')
+y=torch.zeros(2,3)#真实值
+print(f'y:{y}')
+w=torch.randn(5,3,requires_grad=True)
+print(f'w:{w}')
+b=torch.randn(3,requires_grad=True)
+print(f'b:{b}')
+z=torch.matmul(x,w)+b
+print(f'z:{z}')#预测值
+#定义损失函数
+criterion=torch.nn.MSELoss()
+loss=criterion(z,y)
+#进行自动微分，求导，结合反向传播，更新权重
+loss.backward()
+#打印更新后的梯度
+print(f'w的梯度:{w.grad}')
+print(f'b的梯度:{b.grad}')
